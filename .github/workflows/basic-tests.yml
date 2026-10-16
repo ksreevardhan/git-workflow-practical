@@ -1,0 +1,32 @@
+
+name: Basic Tests
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - 'feature/**'
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check repository files
+        run: |
+          test -f README.md
+          test -f feature.txt
+
+      - name: Check whitespace errors
+        run: git diff --check
+
+      - name: Testing completed
+        run: echo "All basic checks passed!"
